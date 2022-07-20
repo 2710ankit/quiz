@@ -2,13 +2,18 @@ import logo from './logo.svg';
 import './App.css';
 import Quiz1 from './container/quiz1/Quiz1';
 import Quiz2 from './container/quiz2/Quiz2';
+import Nav from './components/Nav';
 
 function App() {
   return (
-    <div className='quiz-container'>
-      <Quiz1/>
-      <Quiz2/>
+    <div>
+      <Nav/>
+      <div className='quiz-container'>
+      <Quiz1 />
+      <Quiz2 />
     </div>
+    </div>
+   
   );
 }
 

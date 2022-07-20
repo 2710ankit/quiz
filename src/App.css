@@ -2,3 +2,18 @@
   display: flex;
   justify-content: space-around;
 }
+
+.quiz{
+  border: 1px black solid;
+}
+
+.quiz-start{
+  display: flex;
+  flex-direction: row;
+  row-gap: 15px;
+}
+.quiz-ready{
+  display: flex;
+  flex-direction: row;
+  row-gap: 15px;
+}
