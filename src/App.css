@@ -4,16 +4,74 @@
 }
 
 .quiz{
-  border: 1px black solid;
+  border: 1px #ffc7c7 solid;
+    padding: 20px;
+    border-radius: 10px;
+    margin-top: 65px;
+    width: 43%;
 }
 
 .quiz-start{
   display: flex;
-  flex-direction: row;
   row-gap: 15px;
+  flex-direction: column;
+  align-items: center;
+  border: 1px dotted #df9663;
+  border-radius: 10px;
 }
 .quiz-ready{
   display: flex;
-  flex-direction: row;
+  /* flex-direction: row; */
   row-gap: 15px;
+  flex-direction: column;
+}
+
+.question{
+  background: #120000;
+  text-align: center;
+  padding: 6px;
+  border-radius: 8px;
+  color: white;
+}
+
+.heading{
+  height: 75px;
+}
+.answer{
+  height: 30px;
+  font-size: 18px;
+  font-weight: 500;
+  border-radius: 8px;
+  border: 1px solid black;
+}
+.submit-button{
+  background: #12a312;
+  color: white;
+  border: none;
+  padding: 8px;
+  border-radius: 20px;
+  margin-bottom: 8px;
+}
+.result{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  row-gap: 10px;
+}
+.incorrect-answer{
+  background: red;
+  width: 55%;
+  padding: 10px;
+  text-align: center;
+  border-radius: 15px;
+  color: white;
+}
+.correct-answer{
+  background: rgb(0, 255, 42);
+  width: 55%;
+  padding: 10px;
+  text-align: center;
+  border-radius: 15px;
+  color: white;
 }

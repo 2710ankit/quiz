@@ -4,6 +4,7 @@ import Input from "../../components/Input";
 import Questions from "../../components/Questions";
 import Score from "../../components/Score";
 import Timer from "../../components/Timer";
+import Heading from "../../components/Heading";
 
 const Quiz2 = () => {
   const [quizStarted, setQuizStarted] = useState(false);
@@ -28,7 +29,7 @@ const Quiz2 = () => {
   const inputChangleHandler = (e) => {
     setAnswer(e.target.value);
   };
-  
+
   const submitAnswer = (count) => {
     if (
       count &&
@@ -53,7 +54,8 @@ const Quiz2 = () => {
   };
 
   return (
-    <div className='quiz'>
+    <div className="quiz">
+      <Heading heading="Quiz 2" />
       {quizStarted ? (
         <>
           {!quizEnded ? (
@@ -79,11 +81,25 @@ const Quiz2 = () => {
               </div>
             </div>
           ) : (
-            questions.map((question, index) => {
-              if (index > 0) {
-                return <div key={index}>{question[0].question}</div>;
-              }
-            })
+            <div className="result">
+              <h4>Result</h4>
+              {questions.map((question, index) => {
+                if (index > 0) {
+                  return (
+                    <div
+                      className={
+                        question[0].correct
+                          ? "correct-answer"
+                          : "incorrect-answer"
+                      }
+                      key={index}
+                    >
+                      {question[0].question}
+                    </div>
+                  );
+                }
+              })}
+            </div>
           )}
           <Timer
             seconds={seconds}
@@ -95,10 +111,10 @@ const Quiz2 = () => {
         </>
       ) : (
         <div className="quiz-ready">
-          <div>
-            Select Number Range
-            <Input inputChangleHandler={rangeChangeHandler} value={range} />
-          </div>
+          <p style={{ margin: "0px" }}>Select Number Range</p>
+
+          <Input inputChangleHandler={rangeChangeHandler} value={range} />
+
           <Button name="Start Quiz 2" clickHandler={startQuiz} />
         </div>
       )}

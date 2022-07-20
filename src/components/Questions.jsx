@@ -61,10 +61,11 @@ const Questions = ({ questions, setQuestions, range, questionCount }) => {
 
   return (
     <div>
-      <h1>Question {questionCount + 1}</h1>
-      <div>
+      <h4>Question {questionCount + 1}</h4>
+
+      <h3 className="question">
         {num1} {operators[selectedOperator].sign} {num2}
-      </div>
+      </h3>
     </div>
   );
 };
