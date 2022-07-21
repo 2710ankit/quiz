@@ -6,7 +6,7 @@ import Questions from "../../components/Questions";
 import Score from "../../components/Score";
 import Timer from "../../components/Timer";
 
-const Quiz1 = () => {
+const Quiz1 = ({ setTotalScore, totalScore }) => {
   const [quizStarted, setQuizStarted] = useState(false);
   const [questionCount, setQuestionCount] = useState(0);
   const [quizEnded, setQuizEnded] = useState(false);
@@ -16,6 +16,11 @@ const Quiz1 = () => {
   const [score, setScore] = useState(0);
   const [seconds, setSeconds] = useState(20);
   const [isActive, setIsActive] = useState(false);
+
+  useEffect(() => {
+    if(score != 0)
+    setTotalScore(totalScore + 1);
+  }, [score]);
 
   const startQuiz = () => {
     setIsActive(true);
@@ -84,6 +89,7 @@ const Quiz1 = () => {
             <div className="result">
               <h4>Result</h4>
               {questions.map((question, index) => {
+                console.log(question)
                 if (index > 0) {
                   return (
                     <div
@@ -94,7 +100,7 @@ const Quiz1 = () => {
                       }
                       key={index}
                     >
-                      {question[0].question}
+                     Ques:- {question[0].question}, Ans:- {Math.round(question[0].answer * 100) / 100}
                     </div>
                   );
                 }
