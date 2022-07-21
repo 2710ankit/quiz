@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-const operators = [
+const operatorsOptions = [
   {
     sign: "+",
     method: function (a, b) {
@@ -29,9 +29,22 @@ const operators = [
 
 const defaultQuestion = { num1: 0, num2: 0, selectedOperator: 0 };
 
-const Questions = ({ questions, setQuestions, range, questionCount }) => {
+const Questions = ({
+  questions,
+  setQuestions,
+  range,
+  questionCount,
+  operatorSelected,
+}) => {
   const [questonToAsk, setQuestonToAsk] = useState(defaultQuestion);
   const { num1, num2, selectedOperator } = questonToAsk;
+  const [operators, setOperators] = useState(operatorsOptions);
+
+  // let operators = operatorsOptions
+
+  useEffect(() => {
+    setOperators(selectOperators());
+  }, []);
 
   useEffect(() => {
     generateQuestion();
@@ -54,9 +67,22 @@ const Questions = ({ questions, setQuestions, range, questionCount }) => {
   const generateQuestion = () => {
     let num1 = Math.floor(Math.random(0) * range);
     let num2 = Math.floor(Math.random(0) * range);
-    let selectedOperator = Math.floor(Math.random() * operators.length);
+    let selectedOperator = Math.floor(Math.random() * operatorSelected.length);
 
     setQuestonToAsk({ num1, num2, selectedOperator });
+  };
+
+  const selectOperators = () => {
+    if (operatorSelected.length) {
+      let res = [];
+      for (let i = 0; i < operatorSelected.length; i++) {
+        res[i] = operatorsOptions[operatorSelected[i].value];
+      }
+
+      return res;
+    } else {
+      return operatorsOptions;
+    }
   };
 
   return (

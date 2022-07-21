@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import Select from "react-select";
 import Button from "../../components/Button";
 import Heading from "../../components/Heading";
 import Input from "../../components/Input";
@@ -6,7 +7,14 @@ import Questions from "../../components/Questions";
 import Score from "../../components/Score";
 import Timer from "../../components/Timer";
 
-const Quiz1 = ({ setTotalScore, totalScore }) => {
+const operatorsOptions = [
+  { value: "0", label: "+" },
+  { value: "1", label: "-" },
+  { value: "2", label: "*" },
+  { value: "3", label: "/" },
+];
+
+const Quiz = ({ setTotalScore, totalScore, heading }) => {
   const [quizStarted, setQuizStarted] = useState(false);
   const [questionCount, setQuestionCount] = useState(0);
   const [quizEnded, setQuizEnded] = useState(false);
@@ -16,10 +24,11 @@ const Quiz1 = ({ setTotalScore, totalScore }) => {
   const [score, setScore] = useState(0);
   const [seconds, setSeconds] = useState(20);
   const [isActive, setIsActive] = useState(false);
+  const [questionNumber, setQuestionNumber] = useState(20);
+  const [operatorSelected, setOperatorSelected] = useState([])
 
   useEffect(() => {
-    if(score != 0)
-    setTotalScore(totalScore + 1);
+    if (score != 0) setTotalScore(totalScore + 1);
   }, [score]);
 
   const startQuiz = () => {
@@ -43,7 +52,7 @@ const Quiz1 = ({ setTotalScore, totalScore }) => {
       questions[count][0].correct = true;
       setScore(score + 1);
     }
-    if (questionCount >= 19) {
+    if (questionCount >= questionNumber - 1) {
       setQuizEnded(true);
       // clearInterval(interval)
       return;
@@ -58,9 +67,18 @@ const Quiz1 = ({ setTotalScore, totalScore }) => {
     setRange(e.target.value);
   };
 
+  const questionNumberChangeHandler = (e) => {
+    e.target.value = e.target.value;
+    setQuestionNumber(e.target.value);
+  };
+
+  const operatorsSelector = (e)=>{
+    setOperatorSelected(e)
+  }
+
   return (
     <div className="quiz">
-      <Heading heading="Quiz 1" />
+      <Heading heading={heading} />
       {quizStarted ? (
         <>
           {!quizEnded ? (
@@ -70,6 +88,7 @@ const Quiz1 = ({ setTotalScore, totalScore }) => {
                 setQuestions={setQuestions}
                 range={range}
                 questionCount={questionCount}
+                operatorSelected={operatorSelected}
               />
               <div>
                 Answer:
@@ -89,7 +108,6 @@ const Quiz1 = ({ setTotalScore, totalScore }) => {
             <div className="result">
               <h4>Result</h4>
               {questions.map((question, index) => {
-                console.log(question)
                 if (index > 0) {
                   return (
                     <div
@@ -100,7 +118,8 @@ const Quiz1 = ({ setTotalScore, totalScore }) => {
                       }
                       key={index}
                     >
-                     Ques:- {question[0].question}, Ans:- {Math.round(question[0].answer * 100) / 100}
+                      Ques:- {question[0].question}, Ans:-{" "}
+                      {Math.round(question[0].answer * 100) / 100}
                     </div>
                   );
                 }
@@ -119,6 +138,21 @@ const Quiz1 = ({ setTotalScore, totalScore }) => {
         <div className="quiz-ready">
           <p style={{ margin: "0px" }}>Select Number Range</p>
           <Input inputChangleHandler={rangeChangeHandler} value={range} />
+          <br />
+          <p style={{ margin: "0px" }}>Select Number of Questions</p>
+          <Input
+            inputChangleHandler={questionNumberChangeHandler}
+            value={questionNumber}
+          />
+          <p style={{ margin: "0px" }}>Select Number of Questions</p>
+          <Select
+            isMulti
+            name="colors"
+            options={operatorsOptions}
+            className="basic-multi-select"
+            classNamePrefix="select"
+            onChange={operatorsSelector}
+          />
 
           <Button name="Start Quiz 1" clickHandler={startQuiz} />
         </div>
@@ -127,4 +161,4 @@ const Quiz1 = ({ setTotalScore, totalScore }) => {
   );
 };
 
-export default Quiz1;
+export default Quiz;

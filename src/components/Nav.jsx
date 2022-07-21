@@ -4,7 +4,6 @@ const Nav = ({totalScore}) => {
 
 
   useEffect(() => {
-   console.log(totalScore)
   }, [totalScore])
   
 
