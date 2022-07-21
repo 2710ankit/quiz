@@ -14,7 +14,7 @@ const operatorsOptions = [
   { value: "3", label: "/" },
 ];
 
-const Quiz = ({ setTotalScore, totalScore, heading }) => {
+const Quiz = ({ setTotalScore, totalScore, heading, resetClicked }) => {
   const [quizStarted, setQuizStarted] = useState(false);
   const [questionCount, setQuestionCount] = useState(0);
   const [quizEnded, setQuizEnded] = useState(false);
@@ -25,7 +25,11 @@ const Quiz = ({ setTotalScore, totalScore, heading }) => {
   const [seconds, setSeconds] = useState(20);
   const [isActive, setIsActive] = useState(false);
   const [questionNumber, setQuestionNumber] = useState(20);
-  const [operatorSelected, setOperatorSelected] = useState([])
+  const [operatorSelected, setOperatorSelected] = useState([]);
+
+  useEffect(() => {
+    resetAll();
+  }, [resetClicked]);
 
   useEffect(() => {
     if (score != 0) setTotalScore(totalScore + 1);
@@ -72,9 +76,23 @@ const Quiz = ({ setTotalScore, totalScore, heading }) => {
     setQuestionNumber(e.target.value);
   };
 
-  const operatorsSelector = (e)=>{
-    setOperatorSelected(e)
-  }
+  const operatorsSelector = (e) => {
+    setOperatorSelected(e);
+  };
+
+  const resetAll = () => {
+    setQuizStarted(false);
+    setQuestionCount(0);
+    setRange(10);
+    setAnswer("");
+    setQuestions([]);
+    setScore(0);
+    setSeconds(20);
+    setIsActive(false);
+    setQuestionNumber(20);
+    setOperatorSelected([]);
+    setQuizEnded(false);
+  };
 
   return (
     <div className="quiz">

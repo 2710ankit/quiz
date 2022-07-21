@@ -40,8 +40,6 @@ const Questions = ({
   const { num1, num2, selectedOperator } = questonToAsk;
   const [operators, setOperators] = useState(operatorsOptions);
 
-  // let operators = operatorsOptions
-
   useEffect(() => {
     setOperators(selectOperators());
   }, []);
@@ -67,7 +65,7 @@ const Questions = ({
   const generateQuestion = () => {
     let num1 = Math.floor(Math.random(0) * range);
     let num2 = Math.floor(Math.random(0) * range);
-    let selectedOperator = Math.floor(Math.random() * operatorSelected.length);
+    let selectedOperator = Math.floor(Math.random() * (operatorSelected.length == 0 ? operators.length : operatorSelected.length));
 
     setQuestonToAsk({ num1, num2, selectedOperator });
   };
